@@ -1,6 +1,7 @@
 # gaussian-hyperpolarizability-grep
 extract hyperpolarizability (and polarizability and dipole moment) components from Gaussian 09 output.
 
+
 1) You must use POLAR and #P keywords in the root section of your Gaussian input.
 2) Run Gaussian:  g09 < yourinput.com > youroutput.log
 3) Make executable hyper-grep.sh: chmod +x hyper-grep.sh
