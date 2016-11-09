@@ -2,7 +2,7 @@
 #clear
 # This script used for greping static Hyperpolarizablity for w=0.0 from gaussian output and converting it to electreostatic unit.
 # usage: ./gp.sh gaussian-output.out [unit]
-# for using this script you must use "polar" or "freq" keyword in gaussian input file and "p" (for additional print) after # symbole,e.g:
+# for using this script you must use "polar" keyword in gaussian input file (for mp2 or higher level of calculation you should use Polar=cubic or Polar=EnOnly or Polar=DubleNumber) and "p" (for additional print) after # symbole,e.g:
 #         #p b3lyp/6-311++g(d,p) polar
 
 
