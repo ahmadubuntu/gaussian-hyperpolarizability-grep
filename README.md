@@ -2,7 +2,7 @@
 extract hyperpolarizability (and polarizability and dipole moment) components from Gaussian 09 output.
 
 
-1) You must use POLAR and #P keywords in the root section of your Gaussian input.
+1) You must use POLAR and #P keywords in the root section of your Gaussian input (for mp2 or higher level of calculation you should use Polar=cubic or Polar=EnOnly or Polar=DubleNumber, SEE: http://www.gaussian.com/g_tech/g_ur/k_polar.htm). 
 
 2) Run Gaussian:  g09 < yourinput.com > youroutput.log
 
