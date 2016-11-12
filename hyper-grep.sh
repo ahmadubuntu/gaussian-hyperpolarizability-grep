@@ -89,6 +89,6 @@ mu_tot=`echo ${mu_tot} | sed 's/D/\*10\^/' | sed 's/+//'`
 # print data
 #===============================================================================================================================================================
 
-printf  "Structure,μx,μy,μz,μ0,αxx,αxy,αyy,αxz,αyz,αzz,|α0|,Δα,|α0|(esu),Δα(esu),βxxx,βxxy,βxyy,βyyy,βxxz,βxyz,βyyz,βxxz,βyzz,βzzz,β0,β0(esu)\n"
+printf  "Structure,μx,μy,μz,μ0,αxx,αxy,αyy,αxz,αyz,αzz,|α0|,Δα,|α0|(esu),Δα(esu),βxxx,βxxy,βxyy,βyyy,βxxz,βxyz,βyyz,βxzz,βyzz,βzzz,β0,β0(esu)\n"
 
-printf  "%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s\n" $infile $mux $muy $muz $mu_tot $axx $axy $ayy $axz $ayz $azz $atot_iso $atot_aniso $atot_iso_esu*10^-24 $atot_aniso_esu*10^-24 $bxxx $bxxy $bxyy $byyy $bxxz $bxyz $byyz $bxxz $byzz $bzzz $Btot $btot_esu*10^-33
+printf  "%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s,=%s\n" $infile $mux $muy $muz $mu_tot $axx $axy $ayy $axz $ayz $azz $atot_iso $atot_aniso $atot_iso_esu*10^-24 $atot_aniso_esu*10^-24 $bxxx $bxxy $bxyy $byyy $bxxz $bxyz $byyz $bxzz $byzz $bzzz $Btot $btot_esu*10^-33
