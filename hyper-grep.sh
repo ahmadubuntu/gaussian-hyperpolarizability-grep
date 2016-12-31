@@ -9,19 +9,35 @@
 #find polarizability and hyperpolarizabilty block in gaussian output and find Betta tensor components in it
 infile=$1
 
+# debug: T or F
+dbg="F"
+
+# expression to finding polarizability block
+chkmp2=`grep -e '#' $infile  | grep mp2`
+
+if [ "$chkmp2" = "" ]
+then
+        polblk="SCF Polarizability"
+else
+        polblk="Isotropic Polarizability"
+fi
+
+# expression to finding hyperpolarizability block
+hypblk="Static Hyperpolarizability"
+
 #===============================================================================================================================================================
 #   Hyperpolarizability (beta) [au, esu]
 #===============================================================================================================================================================
-bxxx=`cat $infile | grep -A 12 "SCF Static Hyperpolarizability" | tail -10 | sed -n "1p" | awk '{print $2}'`  ; 
-bxxy=`cat $infile | grep -A 12 "SCF Static Hyperpolarizability" | tail -10 | sed -n "4p" | awk '{print $2}'`  ; 
-bxyy=`cat $infile | grep -A 12 "SCF Static Hyperpolarizability" | tail -10 | sed -n "5p" | awk '{print $2}'`  ; 
-byyy=`cat $infile | grep -A 12 "SCF Static Hyperpolarizability" | tail -10 | sed -n "5p" | awk '{print $3}'`  ; 
-bxxz=`cat $infile | grep -A 12 "SCF Static Hyperpolarizability" | tail -10 | sed -n "8p" | awk '{print $2}'`  ; 
-bxyz=`cat $infile | grep -A 12 "SCF Static Hyperpolarizability" | tail -10 | sed -n "9p" | awk '{print $2}'`  ; 
-byyz=`cat $infile | grep -A 12 "SCF Static Hyperpolarizability" | tail -10 | sed -n "9p" | awk '{print $3}'`  ; 
-bxzz=`cat $infile | grep -A 12 "SCF Static Hyperpolarizability" | tail -10 | sed -n "10p" | awk '{print $2}'` ; 
-byzz=`cat $infile | grep -A 12 "SCF Static Hyperpolarizability" | tail -10 | sed -n "10p" | awk '{print $3}'` ; 
-bzzz=`cat $infile | grep -A 12 "SCF Static Hyperpolarizability" | tail -10 | sed -n "10p" | awk '{print $4}'` ; 
+bxxx=`cat $infile | grep -A 12 -i "$hypblk" | tail -10 | sed -n "1p" | awk '{print $2}'`  ;
+bxxy=`cat $infile | grep -A 12 -i "$hypblk" | tail -10 | sed -n "4p" | awk '{print $2}'`  ;
+bxyy=`cat $infile | grep -A 12 -i "$hypblk" | tail -10 | sed -n "5p" | awk '{print $2}'`  ;
+byyy=`cat $infile | grep -A 12 -i "$hypblk" | tail -10 | sed -n "5p" | awk '{print $3}'`  ;
+bxxz=`cat $infile | grep -A 12 -i "$hypblk" | tail -10 | sed -n "8p" | awk '{print $2}'`  ;
+bxyz=`cat $infile | grep -A 12 -i "$hypblk" | tail -10 | sed -n "9p" | awk '{print $2}'`  ;
+byyz=`cat $infile | grep -A 12 -i "$hypblk" | tail -10 | sed -n "9p" | awk '{print $3}'`  ;
+bxzz=`cat $infile | grep -A 12 -i "$hypblk" | tail -10 | sed -n "10p" | awk '{print $2}'` ;
+byzz=`cat $infile | grep -A 12 -i "$hypblk" | tail -10 | sed -n "10p" | awk '{print $3}'` ;
+bzzz=`cat $infile | grep -A 12 -i "$hypblk" | tail -10 | sed -n "10p" | awk '{print $4}'` ;
 
 # convert componnets to standard representation
 bxxx=`echo ${bxxx} | sed 's/D/\*10\^/' | sed 's/+//'`
@@ -37,18 +53,20 @@ bzzz=`echo ${bzzz} | sed 's/D/\*10\^/' | sed 's/+//'`
 Btot=$(echo "scale=8; sqrt(((($bxxx)+($bxyy)+($bxzz))^2+(($byyy)+($byzz)+($bxxy))^2+(($bzzz)+($bxxz)+($byyz))^2))" | bc -l)
 btot_esu=$(echo "scale=8; ($Btot)*(8.6393)" | bc -l);
 #===============================================================================================================================================================
-
-
-
+if [ "$dbg" = "T" ]
+then
+echo "bxxx=$bxxx"
+echo "bzzz=$bzzz"
+fi
 #===============================================================================================================================================================
 # polarizability (alpha) [au, esu]
 #===============================================================================================================================================================
-axx=`cat $infile | grep -A 4 "SCF Polarizability" | tail -3 | sed -n "1p" | awk '{print $2}'`  ;
-axy=`cat $infile | grep -A 4 "SCF Polarizability" | tail -3 | sed -n "2p" | awk '{print $2}'`  ;
-ayy=`cat $infile | grep -A 4 "SCF Polarizability" | tail -3 | sed -n "2p" | awk '{print $3}'`  ;
-axz=`cat $infile | grep -A 4 "SCF Polarizability" | tail -3 | sed -n "3p" | awk '{print $2}'`  ;
-ayz=`cat $infile | grep -A 4 "SCF Polarizability" | tail -3 | sed -n "3p" | awk '{print $3}'`  ;
-azz=`cat $infile | grep -A 4 "SCF Polarizability" | tail -3 | sed -n "3p" | awk '{print $4}'`  ;
+axx=`cat $infile | grep -A 4 -i "$polblk" | tail -3 | sed -n "1p" | awk '{print $2}'`  ;
+axy=`cat $infile | grep -A 4 -i "$polblk" | tail -3 | sed -n "2p" | awk '{print $2}'`  ;
+ayy=`cat $infile | grep -A 4 -i "$polblk" | tail -3 | sed -n "2p" | awk '{print $3}'`  ;
+axz=`cat $infile | grep -A 4 -i "$polblk" | tail -3 | sed -n "3p" | awk '{print $2}'`  ;
+ayz=`cat $infile | grep -A 4 -i "$polblk" | tail -3 | sed -n "3p" | awk '{print $3}'`  ;
+azz=`cat $infile | grep -A 4 -i "$polblk" | tail -3 | sed -n "3p" | awk '{print $4}'`  ;
 
 # convert componnets to standard representation
 axx=`echo ${axx} | sed 's/D/\*10\^/' | sed 's/+//'`
@@ -64,8 +82,11 @@ atot_aniso=$(echo "scale=8; (sqrt(2)*sqrt((($axx-$ayy)^2+($ayy-$azz)^2+($azz-$ax
 atot_iso_esu=$(echo "scale=8; ($atot_iso)*(0.1482)" | bc -l);
 atot_aniso_esu=$(echo "scale=8; ($atot_aniso)*(0.1482)" | bc -l);
 #===============================================================================================================================================================
-
-
+if [ "$dbg" = "T" ]
+then
+echo "axx=$axx"
+echo "azz=$azz"
+fi
 
 #===============================================================================================================================================================
 # dipole moment (mu) [Debye]
