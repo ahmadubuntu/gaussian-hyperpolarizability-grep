@@ -76,7 +76,7 @@ axz=`echo ${axz} | sed 's/D/\*10\^/' | sed 's/+//'`
 ayz=`echo ${ayz} | sed 's/D/\*10\^/' | sed 's/+//'`
 azz=`echo ${azz} | sed 's/D/\*10\^/' | sed 's/+//'`
 
-atot_iso=$(echo "scale=8; (($axx)+($ayy)+($azz))" | bc -l)
+atot_iso=$(echo "scale=8; (($axx)+($ayy)+($azz))/3" | bc -l)
 atot_aniso=$(echo "scale=8; (sqrt(2)*sqrt((($axx-$ayy)^2+($ayy-$azz)^2+($azz-$axx)^2+6*(($axx)^2))))" | bc -l)
 
 atot_iso_esu=$(echo "scale=8; ($atot_iso)*(0.1482)" | bc -l);
